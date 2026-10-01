@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f1f3;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 70px;
+            background: #5E2D3F;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 600;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .registered {
+            font-size: 14px;
+        }
+
+        .registered span {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .logout-btn {
+            background: white;
+            color: #5E2D3F;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #f1e5e9;
+        }
+
+
+        /* MAIN */
+
+        .main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 25px;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            color: #5E2D3F;
+            font-size: 27px;
+            margin-bottom: 6px;
+        }
+
+        .heading p {
+            color: #777;
+            font-size: 14px;
+        }
+
+
+        /* CARDS */
+
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .user-card {
+            background: white;
+            border: 1px solid #e5d8de;
+            border-radius: 10px;
+            padding: 22px;
+        }
+
+        .user-card h2 {
+            color: #5E2D3F;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .detail {
+            display: flex;
+            margin-bottom: 9px;
+            font-size: 14px;
+        }
+
+        .detail strong {
+            width: 75px;
+            color: #444;
+        }
+
+        .detail span {
+            color: #777;
+            word-break: break-word;
+        }
+
+        .view-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #5E2D3F;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 18px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .view-btn:hover {
+            background: #492333;
+        }
+
+
+        /* NO USERS */
+
+        .no-users {
+            background: white;
+            border: 1px solid #e5d8de;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            color: #777;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .user-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .navbar {
+                padding: 0 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: auto;
+                padding: 18px 20px;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-right {
+                gap: 12px;
+            }
+
+            .registered {
+                font-size: 12px;
+            }
+
+            .logout-btn {
+                padding: 8px 12px;
+            }
+
+            .user-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            User Dashboard
+        </div>
+
+        <div class="nav-right">
+
+            <div class="registered">
+                Registered People:
+                <span><%= users.length %></span>
+            </div>
+
+            <form action="/logout" >
+                <button type="submit" class="logout-btn">
+                    Logout
+                </button>
+            </form>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <div class="heading">
+            <h1>Registered Users</h1>
+            <p>View the details of all registered people.</p>
+        </div>
+
+
+        <% if (users.length > 0) { %>
+
+            <div class="user-grid">
+
+                <% users.forEach(user => { %>
+
+                    <div class="user-card">
+
+                        <h2>
+                            <%= user.name %>
+                        </h2>
+
+                        <div class="detail">
+                            <strong>Email:</strong>
+                            <span><%= user.email %></span>
+                        </div>
+
+                        <div class="detail">
+                            <strong>Contact:</strong>
+                            <span><%= user.contact %></span>
+                        </div>
+
+                        <div class="detail">
+                            <strong>Age:</strong>
+                            <span><%= user.age %></span>
+                        </div>
+
+                        <div class="detail">
+                            <strong>City:</strong>
+                            <span><%= user.city %></span>
+                        </div>
+
+                        <a 
+                            href="/user/<%= user._id %>" 
+                            class="view-btn"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                <% }) %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="no-users">
+                No registered users found.
+            </div>
+
+        <% } %>
+
+    </main>
+
+</body>
+</html>

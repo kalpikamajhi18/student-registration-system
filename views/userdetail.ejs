@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Details</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f1f3;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 70px;
+            background: #5E2D3F;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: white;
+            color: #5E2D3F;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            background: #f1e5e9;
+        }
+
+        /* MAIN */
+
+        .main {
+            max-width: 700px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .heading {
+            margin-bottom: 20px;
+        }
+
+        .heading h1 {
+            color: #5E2D3F;
+            font-size: 27px;
+            margin-bottom: 6px;
+        }
+
+        .heading p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* USER CARD */
+
+        .user-card {
+            background: white;
+            border: 1px solid #e5d8de;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .user-name {
+            color: #5E2D3F;
+            font-size: 23px;
+            margin-bottom: 25px;
+        }
+
+        .detail {
+            display: flex;
+            padding: 13px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .detail strong {
+            width: 110px;
+            color: #444;
+        }
+
+        .detail span {
+            color: #777;
+            word-break: break-word;
+        }
+
+        /* BUTTONS */
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            border: none;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background: #5E2D3F;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #492333;
+        }
+
+        .delete-btn {
+            background: #f1e5e9;
+            color: #5E2D3F;
+        }
+
+        .delete-btn:hover {
+            background: #e5d8de;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .main {
+                margin-top: 30px;
+            }
+
+            .user-card {
+                padding: 22px;
+            }
+
+            .detail {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .edit-btn,
+            .delete-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            User Details
+        </div>
+
+        <a href="/dashboard" class="back-btn">
+            Back to Dashboard
+        </a>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <div class="heading">
+            <h1>User Information</h1>
+            <p>Details of the registered user.</p>
+        </div>
+
+
+        <div class="user-card">
+
+            <h2 class="user-name">
+                <%= user.name %>
+            </h2>
+
+
+            <div class="detail">
+                <strong>Email:</strong>
+                <span><%= user.email %></span>
+            </div>
+
+
+            <div class="detail">
+                <strong>Contact:</strong>
+                <span><%= user.contact %></span>
+            </div>
+
+
+            <div class="detail">
+                <strong>Age:</strong>
+                <span><%= user.age %></span>
+            </div>
+
+
+            <div class="detail">
+                <strong>City:</strong>
+                <span><%= user.city %></span>
+            </div>
+
+
+            <div class="detail">
+                <strong>Gender:</strong>
+                <span><%= user.gender %></span>
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="actions">
+
+                <a href="/user/<%= user._id %>/edit">
+                    <button class="edit-btn">
+                        Edit
+                    </button>
+                </a>
+
+
+                <form action="/user/<%= user._id %>/delete" method="POST">
+
+                    <button type="submit" class="delete-btn">
+                        Delete
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
